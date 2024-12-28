@@ -1,10 +1,6 @@
-
-
-
 // src/components/DocumentView.jsx
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowLeft, FileText, Calendar, Loader2 } from 'lucide-react';
 import { getDocument } from '../services/api';
 
@@ -13,17 +9,15 @@ const DocumentView = () => {
   const navigate = useNavigate();
   const [document, setDocument] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
 
   useEffect(() => {
     const fetchDocument = async () => {
       try {
         setLoading(true);
-        const data = await getDocument(id);
+        const data = await getDocument(id); // Fetch specific document details
         setDocument(data);
-      } catch (err) {
-        setError('Error fetching document details');
+      } catch (error) {
+        console.error('Error fetching document:', error);
       } finally {
         setLoading(false);
       }
@@ -54,7 +48,7 @@ const DocumentView = () => {
         <div className="p-4 border-b">
           <div className="flex items-center space-x-2">
             <FileText size={16} className="text-gray-400" />
-            <h1 className="text-sm font-medium">{document?.fileName}</h1>
+            <h1 className="text-sm font-medium">{document.fileName}</h1>
           </div>
         </div>
 
@@ -62,13 +56,13 @@ const DocumentView = () => {
           <div className="flex items-center space-x-2 mb-4">
             <Calendar size={14} className="text-gray-400" />
             <span className="text-xs text-gray-500">
-              {new Date(document?.uploadDate).toLocaleString()}
+              {new Date(document.uploadDate).toLocaleString()}
             </span>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-4">
             <pre className="text-xs text-gray-600 whitespace-pre-wrap">
-              {document?.extractedData}
+              {document.extractedData}
             </pre>
           </div>
         </div>

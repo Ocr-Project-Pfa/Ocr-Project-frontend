@@ -1,6 +1,7 @@
 // src/components/DocumentUpload.jsx
 import { useState } from 'react';
 import { Upload, Loader2 } from 'lucide-react';
+import { uploadDocument } from '../services/api';
 
 const DocumentUpload = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);
@@ -12,10 +13,10 @@ const DocumentUpload = ({ onUploadSuccess }) => {
 
     try {
       setLoading(true);
-      // Your upload logic here
-      onUploadSuccess();
+      const data = await uploadDocument(file); // Upload file to backend
+      onUploadSuccess(data); // Notify parent component of the successful upload
     } catch (error) {
-      console.error(error);
+      console.error('Error uploading document:', error);
     } finally {
       setLoading(false);
     }
@@ -28,7 +29,7 @@ const DocumentUpload = ({ onUploadSuccess }) => {
           <Upload size={16} className="text-gray-500" />
           <h2 className="text-sm font-medium">Upload Document</h2>
         </div>
-        
+
         <form onSubmit={handleUpload}>
           <div className="border-2 border-dashed rounded-lg p-4 text-center">
             <input
@@ -38,7 +39,7 @@ const DocumentUpload = ({ onUploadSuccess }) => {
               accept="image/*,.pdf"
             />
           </div>
-          
+
           <button
             type="submit"
             disabled={!file || loading}
