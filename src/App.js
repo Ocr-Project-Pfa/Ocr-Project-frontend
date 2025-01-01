@@ -7,6 +7,10 @@ import DocumentList from './components/DocumentList';
 import DocumentView from './components/DocumentView';
 import { getAllDocuments } from './services/api';
 
+import SignIn from './components/auth/Sign-in';
+import SignUp from './components/auth/Sign-up';
+
+
 function App() {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -38,6 +42,8 @@ function App() {
       <div className="min-h-screen bg-gray-50">
         <Navbar />
         <Routes>
+        <Route path="/login" element={<SignIn />} />
+          <Route path="/register" element={<SignUp />} />
           <Route
             path="/"
             element={
