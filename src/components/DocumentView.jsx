@@ -60,10 +60,27 @@ const DocumentView = () => {
             </span>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-4">
-            <pre className="text-xs text-gray-600 whitespace-pre-wrap">
-              {document.extractedData}
-            </pre>
+          <div className="space-y-4">
+            <div>
+              <span className="font-medium text-gray-700">Last Name: </span>
+              <span className="text-gray-600">{document.lastname || 'N/A'}</span>
+            </div>
+            <div>
+              <span className="font-medium text-gray-700">First Name: </span>
+              <span className="text-gray-600">{document.firstname || 'N/A'}</span>
+            </div>
+            <div>
+              <span className="font-medium text-gray-700">Date of Birth: </span>
+              <span className="text-gray-600">{document.dateOfBirth || 'N/A'}</span>
+            </div>
+            <div>
+              <span className="font-medium text-gray-700">Place of Birth: </span>
+              <span className="text-gray-600">{document.bornIn || 'N/A'}</span>
+            </div>
+            <div>
+              <span className="font-medium text-gray-700">ID Card Number: </span>
+              <span className="text-gray-600">{document.idCardNumber || 'N/A'}</span>
+            </div>
           </div>
         </div>
       </div>
