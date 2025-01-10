@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://localhost:8082/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL
@@ -19,11 +19,25 @@ api.interceptors.request.use((config) => {
 // Authentication endpoints
 export const authApi = {
   login: async (credentials) => {
-    const response = await api.post('/auth/login', credentials);
+    const response = await api.post('/auth/authenticate', {
+      username: credentials.email,
+      password: credentials.password
+    });
     return response.data;
   },
   register: async (userData) => {
-    const response = await api.post('/auth/register', userData);
+    const response = await api.post('/auth/register', {
+      username: userData.name,
+      email: userData.email,
+      password: userData.password
+    });
+    return response.data;
+  },
+  verifyOtp: async (username, otp) => {
+    const response = await api.post('/auth/verify-otp', {
+      username,
+      otp
+    });
     return response.data;
   },
   logout: () => {
