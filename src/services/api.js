@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8082/api';
 
+const API_BASE_URL_DOC = 'http://localhost:8080/api';
+
 const api = axios.create({
   baseURL: API_BASE_URL
 });
@@ -20,7 +22,7 @@ api.interceptors.request.use((config) => {
 export const authApi = {
   login: async (credentials) => {
     const response = await api.post('/auth/authenticate', {
-      username: credentials.email,
+      username: credentials.username,
       password: credentials.password
     });
     return response.data;
@@ -50,16 +52,16 @@ export const authApi = {
 export const uploadDocument = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
-  const response = await api.post('/documents/upload', formData);
+  const response = await api.post('http://localhost:8080/api/documents/upload', formData);
   return response.data;
 };
 
 export const getAllDocuments = async () => {
-  const response = await api.get('/documents/');
+  const response = await api.get('http://localhost:8080/api/documents/');
   return response.data;
 };
 
 export const getDocument = async (id) => {
-  const response = await api.get(`/documents/${id}`);
+  const response = await api.get(`http://localhost:8080/api/documents/${id}`);
   return response.data;
 };
