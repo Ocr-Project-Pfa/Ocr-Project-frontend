@@ -11,7 +11,7 @@ const SignIn = () => {
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [otp, setOtp] = useState('');
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
 
@@ -48,7 +48,7 @@ const SignIn = () => {
     setLoading(true);
 
     try {
-      const response = await authApi.verifyOtp(formData.email, otp);
+      const response = await authApi.verifyOtp(formData.username, otp);
       localStorage.setItem('token', response.token);
       navigate('/');
     } catch (err) {
@@ -77,8 +77,28 @@ const SignIn = () => {
               </div>
             )}
             <div>
+              <label htmlFor="username" className="sr-only">
+                Username
+              </label>
               <input
                 type="text"
+                id="username"
+                value={formData.username}
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+                required
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Username"
+              />
+            </div>
+            <div>
+              <label htmlFor="otp" className="sr-only">
+                OTP
+              </label>
+              <input
+                type="text"
+                id="otp"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 required
@@ -121,17 +141,17 @@ const SignIn = () => {
           )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
+              <label htmlFor="username" className="sr-only">
+                Username
               </label>
               <input
-                id="email"
-                name="email"
-                type="email"
+                id="username"
+                name="username"
+                type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={formData.email}
+                placeholder="Username"
+                value={formData.username}
                 onChange={handleChange}
               />
             </div>
