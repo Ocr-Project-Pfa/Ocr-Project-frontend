@@ -71,7 +71,7 @@ const DocumentView = () => {
             </div>
             <div>
               <span className="font-medium text-gray-700">Date of Birth: </span>
-              <span className="text-gray-600">{document.dateOfBirth || 'N/A'}</span>
+              <span className="text-gray-600">{document.bornAt || 'N/A'}</span>
             </div>
             <div>
               <span className="font-medium text-gray-700">Place of Birth: </span>
